@@ -373,6 +373,43 @@ h3{font-size:clamp(18px,1.6vw,22px)}
   .hero-tags .tag:nth-child(n+3){display:none}
 }
 .lhero .price-badge{flex-wrap:wrap;row-gap:2px}.lhero .price-badge b{white-space:nowrap}
+
+/* hero split v3 */
+.hero-bg{background:radial-gradient(900px 500px at 85% 20%,rgba(255,106,19,.18),transparent 60%),linear-gradient(135deg,#1f2328,#131518)!important}
+.hero-bg::after{display:none!important}
+.hero-grid{mask-image:linear-gradient(90deg,#000 10%,transparent 90%)}
+.hero .container{padding-top:72px}
+.hero-split{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.hero-text{min-width:0}
+.hero h1{font-size:clamp(30px,3.6vw,50px);margin:22px 0 24px}
+.hero-media{position:relative;min-width:0;isolation:isolate}
+.hero-photo{border-radius:24px;overflow:hidden;aspect-ratio:4/4.3;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);position:relative}
+.hero-photo::before{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);border-radius:inherit;pointer-events:none}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:35% center}
+.hero-media::before{content:"";position:absolute;right:-18px;top:-18px;width:120px;height:120px;border-radius:24px;background:var(--accent);z-index:-1}
+.hero-chip{position:absolute;background:#fff;color:var(--ink);border-radius:16px;padding:14px 18px;box-shadow:0 20px 40px -16px rgba(0,0,0,.5);display:flex;gap:12px;align-items:center}
+.hero-chip b{font-family:var(--head);font-size:22px;font-weight:600;white-space:nowrap}
+.hero-chip span{font-size:13px;color:var(--ink-2);line-height:1.3}
+.hero-chip small{color:var(--muted);font-size:12px}
+.hero-chip-a{left:-28px;bottom:48px;flex-direction:column;align-items:flex-start;gap:2px}
+.hero-chip-b{right:20px;top:20px;padding:10px 14px}
+.hero-chip-b i{width:10px;height:10px;border-radius:50%;background:#22a35a;box-shadow:0 0 0 4px rgba(34,163,90,.2);flex:none}
+.hero-chip-b span{font-weight:700;color:var(--ink)}
+.hero-stats{margin-top:72px}
+@media (max-width:1100px){
+  .hero-split{grid-template-columns:1fr;gap:40px}
+  .hero-media{max-width:560px}
+  .hero-photo{aspect-ratio:16/11}
+}
+@media (max-width:720px){
+  .hero .container{padding-top:40px}
+  .hero-media::before{width:80px;height:80px;right:-8px;top:-8px}
+  .hero-chip-a{left:12px;bottom:12px;padding:10px 14px}
+  .hero-chip-a b{font-size:18px}
+  .hero-chip-b{right:12px;top:12px}
+  .hero-stats{margin-top:48px}
+}
+.logo small{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -424,19 +461,26 @@ h3{font-size:clamp(18px,1.6vw,22px)}
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="container">
-    <span class="eyebrow">Группа компаний «Рубеж» · Выкса</span>
-    <h1>Бетон, ЖБИ и щебень <em>от&nbsp;производителя</em> с&nbsp;доставкой по&nbsp;области</h1>
-    <p class="hero-lead">Свой бетонный завод, цех ЖБИ и щебёночное производство на 30 гектарах. Отгружаем от 1 м³, привозим миксерами в Выксу, район и по Нижегородской области.</p>
-    <div class="hero-cta">
-      <a href="#lead" class="btn btn-accent">Рассчитать заказ
-        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a href="#catalog" class="btn btn-ghost">Смотреть продукцию</a>
-    </div>
-    <div class="hero-tags">
-      <span class="tag">Бетон от 6 182 ₽/м³</span>
-      <span class="tag">Независимая лаборатория</span>
-      <span class="tag">Член Ассоциации «Железобетон»</span>
-      <span class="tag">Автобетононасос 37 м</span>
+    <div class="hero-split">
+      <div class="hero-text">
+        <span class="eyebrow">Группа компаний «Рубеж» · Выкса</span>
+        <h1>Бетон, ЖБИ и щебень <em>от&nbsp;производителя</em> с&nbsp;доставкой по&nbsp;области</h1>
+        <p class="hero-lead">Свой бетонный завод, цех ЖБИ и щебёночное производство на 30 гектарах. Отгружаем от 1 м³, привозим миксерами в Выксу, район и по Нижегородской области.</p>
+        <div class="hero-cta">
+          <a href="#lead" class="btn btn-accent">Рассчитать заказ
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#catalog" class="btn btn-ghost">Смотреть продукцию</a>
+        </div>
+        <div class="hero-tags">
+          <span class="tag">Бетон от 6 182 ₽/м³</span>
+          <span class="tag">Независимая лаборатория</span>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="hero-photo"><img src="assets/img/zapushheno-proizvodstvo-zhelezobetonnykh-izdelij-na-oborudovanii-cgm.jpg" alt="Цех ЖБИ ГК «Рубеж» — производство колец на оборудовании CGM"></div>
+        <div class="hero-chip hero-chip-a"><b>от 1 м³</b><span>отгружаем любой объём</span></div>
+        <div class="hero-chip hero-chip-b"><i></i><span>Отгрузка сегодня<br><small>Пн–Сб 8:00–18:00</small></span></div>
+      </div>
     </div>
     <div class="hero-stats">
       <div class="stat"><b>3 млн<sup>тн</sup></b><span>побочного продукта ВМЗ переработано за 4 года</span></div>
