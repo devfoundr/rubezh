@@ -8,7 +8,356 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
+<style>
+/* ====== РУБЕЖ — редизайн, макет ====== */
+:root{
+  --bg:#f3f1ec;
+  --paper:#ffffff;
+  --ink:#16181b;
+  --ink-2:#3b3f45;
+  --muted:#7a7e85;
+  --line:#dedad2;
+  --graphite:#1d2024;
+  --graphite-2:#272b31;
+  --accent:#ff6a13;
+  --accent-dark:#e45700;
+  --accent-soft:#fff0e6;
+  --green:#2f7d4f;
+  --radius:18px;
+  --radius-sm:10px;
+  --shadow:0 18px 50px -24px rgba(22,24,27,.35);
+  --container:1240px;
+  --head:"Unbounded",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+.container{max-width:var(--container);margin:0 auto;padding:0 24px}
+h1,h2,h3,h4{font-family:var(--head);font-weight:600;line-height:1.1;letter-spacing:-.02em}
+h1{font-size:clamp(34px,5.4vw,72px)}
+h2{font-size:clamp(28px,3.6vw,46px)}
+h3{font-size:clamp(18px,1.6vw,22px)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.eyebrow::before{content:"";width:28px;height:2px;background:currentColor}
+.section{padding:110px 0}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:48px;flex-wrap:wrap}
+.section-head h2{max-width:720px;margin-top:14px}
+.section-head p{max-width:420px;color:var(--ink-2)}
+.muted{color:var(--muted)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 28px;border-radius:999px;border:0;cursor:pointer;font-weight:700;font-size:16px;transition:.2s ease;white-space:nowrap}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{background:var(--accent-dark);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1.5px #fff}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#000}
+.btn-line{background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink);color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:#fff}
+.btn-sm{height:44px;padding:0 20px;font-size:15px}
+.arrow{width:18px;height:18px}
+
+/* Topbar + header */
+.topbar{background:var(--graphite);color:#b9bcc2;font-size:13px}
+.topbar .container{display:flex;justify-content:space-between;gap:16px;height:38px;align-items:center}
+.topbar a:hover{color:#fff}
+.topbar .tb-left{display:flex;gap:24px}
+.header{position:sticky;top:0;z-index:50;background:rgba(243,241,236,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.header .container{display:flex;align-items:center;gap:32px;height:78px}
+.logo{display:flex;align-items:center;gap:12px;font-family:var(--head);font-weight:700;font-size:22px;letter-spacing:.04em}
+.logo-mark{width:38px;height:38px;border-radius:10px;background:var(--ink);display:grid;place-items:center;position:relative;overflow:hidden}
+.logo-mark::before{content:"";position:absolute;inset:auto 0 0 0;height:45%;background:var(--accent)}
+.logo-mark span{position:relative;color:#fff;font-size:18px}
+.logo small{display:block;font-family:var(--body);font-weight:600;font-size:11px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-top:2px}
+.nav{display:flex;gap:28px;margin-left:12px}
+.nav a{font-weight:600;font-size:15px;position:relative;padding:6px 0}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--accent);transition:.25s}
+.nav a:hover::after,.nav a.active::after{right:0}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:20px}
+.phone{font-weight:800;font-size:18px;line-height:1.1;text-align:right}
+.phone small{display:block;font-weight:600;font-size:12px;color:var(--muted)}
+.burger{display:none;width:46px;height:46px;border-radius:12px;border:1px solid var(--line);background:var(--paper);cursor:pointer;place-items:center}
+.burger span,.burger span::before,.burger span::after{display:block;width:20px;height:2px;background:var(--ink);position:relative;transition:.2s}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0}
+.burger span::before{top:-6px}.burger span::after{top:6px}
+.mobile-menu{display:none}
+
+/* Hero (home) */
+.hero{position:relative;background:var(--graphite);color:#fff;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:
+  linear-gradient(100deg,rgba(17,19,22,.96) 0%,rgba(17,19,22,.82) 42%,rgba(17,19,22,.35) 100%),
+  url("assets/img/rubezh-photo.jpg") center/cover no-repeat,
+  linear-gradient(135deg,#2a2e34,#14161a)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(90deg,#000 30%,transparent 80%)}
+.hero .container{position:relative;padding-top:110px;padding-bottom:56px}
+.hero h1{max-width:900px;margin:22px 0 26px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-lead{max-width:560px;font-size:19px;color:#cfd2d7}
+.hero-cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+.hero-tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+.tag{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
+.hero-stats{position:relative;margin-top:90px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.14)}
+.stat{padding:28px 24px 8px 0}
+.stat+.stat{padding-left:24px;border-left:1px solid rgba(255,255,255,.14)}
+.stat b{display:block;font-family:var(--head);font-size:clamp(26px,3vw,40px);font-weight:600;letter-spacing:-.02em}
+.stat b sup{font-size:.45em;color:var(--accent);margin-left:4px;vertical-align:top}
+.stat span{display:block;margin-top:8px;color:#a9adb4;font-size:14px;max-width:230px}
+
+/* Category grid */
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cat{position:relative;background:var(--paper);border-radius:var(--radius);padding:26px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--line);transition:.25s;overflow:hidden}
+.cat:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent}
+.cat-ico{width:54px;height:54px;border-radius:14px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent)}
+.cat-ico svg{width:28px;height:28px}
+.cat h3{margin-top:22px}
+.cat .from{font-size:14px;color:var(--muted);margin-top:6px}
+.cat .from b{color:var(--ink)}
+.cat .go{position:absolute;right:22px;top:22px;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--bg);transition:.25s}
+.cat:hover .go{background:var(--accent);color:#fff;transform:rotate(-45deg)}
+.cat.featured{grid-column:span 2;grid-row:span 2;background:var(--graphite);color:#fff;border:0;min-height:456px;background-image:linear-gradient(180deg,rgba(23,25,29,.15),rgba(23,25,29,.92)),url("assets/img/beton-default.jpg");background-size:cover;background-position:center}
+.cat.featured h3{font-size:clamp(26px,2.6vw,36px)}
+.cat.featured .from{color:#c9ccd1}
+.cat.featured .from b{color:#fff}
+.cat.featured .go{background:rgba(255,255,255,.15)}
+.cat.featured .cat-ico{background:var(--accent);color:#fff}
+.cat.featured p{max-width:380px;color:#c9ccd1;margin-top:12px}
+
+/* Price table */
+.price-wrap{display:grid;grid-template-columns:1.25fr .9fr;gap:24px;align-items:start}
+.card{background:var(--paper);border-radius:var(--radius);border:1px solid var(--line);padding:32px}
+.ptable{width:100%;border-collapse:collapse}
+.ptable th{text-align:left;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:0 0 14px}
+.ptable td{padding:18px 0;border-top:1px solid var(--line);vertical-align:middle}
+.ptable .grade{font-family:var(--head);font-weight:600;font-size:18px}
+.ptable .grade small{display:block;font-family:var(--body);font-size:13px;color:var(--muted);font-weight:600;margin-top:2px}
+.ptable .use{color:var(--ink-2);font-size:14px;padding-right:16px}
+.ptable .pr{font-weight:800;font-size:18px;white-space:nowrap;text-align:right}
+.ptable .pr small{font-weight:600;color:var(--muted);font-size:13px}
+.ptable tr:hover td{background:linear-gradient(90deg,transparent,var(--accent-soft) 40%,transparent)}
+
+/* Calculator */
+.calc{background:var(--graphite);color:#fff;border-radius:var(--radius);padding:32px;position:sticky;top:100px}
+.calc h3{font-size:24px;margin-bottom:6px}
+.calc .sub{color:#a9adb4;font-size:14px;margin-bottom:24px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:13px;font-weight:700;color:#a9adb4;margin-bottom:8px;letter-spacing:.02em}
+.select,.input{width:100%;height:52px;border-radius:12px;background:var(--graphite-2);border:1px solid #363b42;padding:0 16px;color:#fff;outline:none;transition:.2s}
+.select:focus,.input:focus{border-color:var(--accent)}
+.range-row{display:flex;align-items:center;gap:14px}
+.range-row input[type=range]{flex:1;accent-color:var(--accent)}
+.range-val{min-width:84px;text-align:right;font-weight:800;font-size:18px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--graphite-2);padding:5px;border-radius:12px;border:1px solid #363b42}
+.seg button{border:0;background:transparent;color:#c9ccd1;height:42px;border-radius:9px;cursor:pointer;font-weight:700;font-size:13px}
+.seg button.on{background:#fff;color:var(--ink)}
+.check{display:flex;align-items:center;gap:10px;font-size:14px;color:#c9ccd1;cursor:pointer;margin-top:4px}
+.check input{accent-color:var(--accent);width:18px;height:18px}
+.calc-total{margin-top:24px;padding-top:22px;border-top:1px dashed #3d424a}
+.calc-total .row{display:flex;justify-content:space-between;font-size:14px;color:#a9adb4;margin-bottom:8px}
+.calc-total .sum{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 20px}
+.calc-total .sum b{font-family:var(--head);font-size:34px;font-weight:600;color:#fff}
+.calc .note{font-size:12px;color:#80858d;margin-top:12px}
+
+/* Features */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feature{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:30px}
+.feature .num{font-family:var(--head);font-size:13px;color:var(--accent);font-weight:600}
+.feature h3{margin:18px 0 10px}
+.feature p{color:var(--ink-2);font-size:15px}
+.feature.dark{background:var(--accent);border:0;color:#fff}
+.feature.dark .num{color:#fff;opacity:.7}
+.feature.dark p{color:#fff;opacity:.9}
+
+/* Eco band */
+.eco{background:var(--ink);color:#fff;border-radius:28px;padding:64px;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;position:relative;overflow:hidden}
+.eco::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,106,19,.35),transparent 70%)}
+.eco h2{margin:16px 0 20px}
+.eco p{color:#c0c3c9;max-width:520px}
+.eco-num{position:relative;font-family:var(--head);font-size:clamp(56px,8vw,120px);font-weight:700;line-height:.9;letter-spacing:-.04em}
+.eco-num span{display:block;font-family:var(--body);font-size:16px;font-weight:600;letter-spacing:0;color:#c0c3c9;margin-top:16px;max-width:340px;line-height:1.5}
+
+/* Companies */
+.companies{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.company{background:var(--paper);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column}
+.company-img{height:220px;background:#cfccc4 center/cover no-repeat;position:relative}
+.company-img .since{position:absolute;left:18px;top:18px;background:#fff;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:800}
+.company-body{padding:26px;display:flex;flex-direction:column;gap:12px;flex:1}
+.company-body p{color:var(--ink-2);font-size:15px}
+.company-meta{margin-top:auto;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
+.company-meta b{color:var(--ink)}
+
+/* Lab band */
+.lab{display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:center;background:var(--accent-soft);border:1px solid #ffd9c2;border-radius:var(--radius);padding:32px 36px}
+.lab-ico{width:72px;height:72px;border-radius:18px;background:var(--accent);display:grid;place-items:center;color:#fff}
+.lab-ico svg{width:36px;height:36px}
+.lab h3{margin-bottom:6px}
+.lab p{color:var(--ink-2)}
+
+/* News */
+.news{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.news-card{background:var(--paper);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);transition:.25s}
+.news-card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
+.news-img{aspect-ratio:16/10;background:#d5d2ca center/cover no-repeat}
+.news-body{padding:22px 24px 26px}
+.news-body time{font-size:13px;color:var(--muted);font-weight:600}
+.news-body h3{font-family:var(--body);font-weight:800;font-size:18px;letter-spacing:0;line-height:1.35;margin-top:8px}
+
+/* Lead form band */
+.lead{background:var(--graphite);color:#fff;border-radius:28px;padding:56px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.lead p{color:#b9bcc2;margin-top:16px;max-width:460px}
+.lead-form{display:grid;gap:12px}
+.lead-form .input{background:#fff;color:var(--ink);border:0;height:58px}
+.lead-form .input::placeholder{color:#8a8e95}
+.lead-form .agree{font-size:12px;color:#8a8e95}
+.lead-form .agree a{text-decoration:underline}
+.form-ok{display:none;padding:18px;border-radius:12px;background:rgba(47,125,79,.2);border:1px solid rgba(47,125,79,.5);color:#bfe8cf;font-weight:600}
+
+/* Contacts */
+.contacts{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px}
+.contact-list{display:grid;gap:12px}
+.contact-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+.contact-item .ci{width:44px;height:44px;flex:none;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.contact-item .ci svg{width:22px;height:22px}
+.contact-item small{display:block;color:var(--muted);font-size:13px;font-weight:600}
+.contact-item b{font-size:17px}
+.map{border-radius:var(--radius);overflow:hidden;min-height:380px;border:1px solid var(--line);background:#ddd}
+.map iframe{width:100%;height:100%;min-height:380px;border:0;display:block}
+
+/* Footer */
+.footer{background:var(--graphite);color:#a9adb4;padding:72px 0 32px;margin-top:110px}
+.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid #30353c}
+.footer .logo{color:#fff}
+.footer .logo-mark{background:#fff}
+.footer .logo-mark span{color:var(--ink)}
+.footer h4{font-family:var(--body);font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff;margin-bottom:18px}
+.footer ul{list-style:none;display:grid;gap:10px;font-size:15px}
+.footer a:hover{color:#fff}
+.footer-bottom{display:flex;justify-content:space-between;gap:20px;padding-top:28px;font-size:13px;flex-wrap:wrap}
+
+/* ===== Landing ===== */
+.crumbs{display:flex;gap:8px;font-size:14px;color:#a9adb4;flex-wrap:wrap}
+.crumbs a:hover{color:#fff}
+.lhero{background:var(--graphite);color:#fff;position:relative;overflow:hidden}
+.lhero-bg{position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,19,22,.97) 0%,rgba(17,19,22,.85) 50%,rgba(17,19,22,.55) 100%),url("assets/img/zapushhen-v-rabotu-betonnyj-zavod-elkomix.jpg") center/cover no-repeat,linear-gradient(135deg,#2a2e34,#14161a)}
+.lhero .container{position:relative;display:grid;grid-template-columns:1.25fr .85fr;gap:56px;padding-top:44px;padding-bottom:80px;align-items:center}
+.lhero h1{font-size:clamp(32px,4.4vw,60px);margin:28px 0 22px}
+.lhero h1 em{font-style:normal;color:var(--accent)}
+.lhero .price-badge{display:inline-flex;align-items:baseline;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:12px 18px;border-radius:14px}
+.lhero .price-badge b{font-family:var(--head);font-size:28px;color:#fff}
+.lhero .price-badge span{color:#b9bcc2;font-size:14px}
+.ticks{list-style:none;display:grid;gap:12px;margin-top:30px}
+.ticks li{display:flex;gap:12px;align-items:flex-start;color:#d6d8dc}
+.ticks li::before{content:"";flex:none;width:22px;height:22px;border-radius:50%;margin-top:1px;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/12px no-repeat}
+.quick{background:#fff;color:var(--ink);border-radius:22px;padding:32px;box-shadow:0 30px 80px -30px rgba(0,0,0,.6)}
+.quick h3{font-size:22px}
+.quick .sub{color:var(--muted);font-size:14px;margin:8px 0 22px}
+.quick .input,.quick .select{background:var(--bg);border:1px solid var(--line);color:var(--ink)}
+.quick .field label{color:var(--ink-2)}
+.quick .btn{width:100%;margin-top:6px}
+.quick .agree{font-size:12px;color:var(--muted);margin-top:12px}
+.quick .form-ok{color:var(--green);background:#e8f4ec;border-color:#bfe0cb}
+
+.strip{background:var(--accent);color:#fff}
+.strip .container{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding-top:26px;padding-bottom:26px}
+.strip div{display:flex;gap:14px;align-items:center;font-weight:700;font-size:15px;line-height:1.3}
+.strip svg{width:34px;height:34px;flex:none}
+
+.grades{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grade-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;gap:14px;transition:.25s;position:relative}
+.grade-card:hover{box-shadow:var(--shadow);border-color:transparent;transform:translateY(-3px)}
+.grade-card .gtop{display:flex;justify-content:space-between;align-items:flex-start}
+.grade-card .gname{font-family:var(--head);font-size:30px;font-weight:600;letter-spacing:-.02em}
+.grade-card .gclass{font-size:13px;font-weight:700;color:var(--muted);margin-top:4px}
+.grade-card .hit{background:var(--accent);color:#fff;font-size:12px;font-weight:800;padding:6px 10px;border-radius:999px}
+.grade-card p{color:var(--ink-2);font-size:15px;flex:1}
+.grade-card .gfoot{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--line)}
+.grade-card .gprice{font-weight:800;font-size:22px}
+.grade-card .gprice small{font-size:13px;color:var(--muted);font-weight:600}
+
+.delivery{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.dlist{list-style:none}
+.dlist li{display:flex;justify-content:space-between;gap:20px;padding:18px 0;border-top:1px solid var(--line)}
+.dlist li:first-child{border-top:0;padding-top:4px}
+.dlist li span{color:var(--ink-2)}
+.dlist li b{white-space:nowrap}
+.card h3{margin-bottom:20px}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
+.step{position:relative;padding:30px 26px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius)}
+.step::before{counter-increment:s;content:"0" counter(s);font-family:var(--head);font-size:44px;font-weight:700;color:var(--accent);opacity:.9;display:block;margin-bottom:18px;line-height:1}
+.step h3{font-size:18px;margin-bottom:8px}
+.step p{color:var(--ink-2);font-size:15px}
+
+.faq{display:grid;gap:10px;max-width:900px}
+.faq details{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:0 26px}
+.faq summary{list-style:none;cursor:pointer;padding:22px 0;font-weight:800;font-size:17px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:26px;font-weight:400;color:var(--accent);transition:.2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 22px;color:var(--ink-2);max-width:760px}
+
+.float-call{position:fixed;right:20px;bottom:20px;z-index:60;width:62px;height:62px;border-radius:50%;background:var(--accent);color:#fff;display:none;place-items:center;box-shadow:0 14px 34px -10px rgba(255,106,19,.8)}
+.float-call svg{width:26px;height:26px}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ===== Responsive ===== */
+@media (max-width:1100px){
+  .nav{display:none}
+  .burger{display:grid}
+  .header-right .btn{display:none}
+  .cats{grid-template-columns:repeat(2,1fr)}
+  .cat.featured{grid-column:span 2;grid-row:auto;min-height:340px}
+  .price-wrap,.lhero .container,.lead,.eco,.contacts,.delivery{grid-template-columns:1fr}
+  .calc{position:static}
+  .features,.companies,.news,.grades{grid-template-columns:repeat(2,1fr)}
+  .steps,.strip .container{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .mobile-menu.open{display:block;position:fixed;inset:78px 0 0;background:var(--bg);z-index:49;padding:24px;overflow:auto}
+  .mobile-menu a{display:block;font-family:var(--head);font-size:24px;font-weight:600;padding:16px 0;border-bottom:1px solid var(--line)}
+  .mobile-menu .btn{margin-top:24px;width:100%;font-family:var(--body);font-size:16px}
+}
+@media (max-width:720px){
+  .section{padding:72px 0}
+  .container{padding:0 16px}
+  .topbar .tb-left a:not(:first-child){display:none}
+  .header .container{height:68px;gap:12px}
+  .mobile-menu.open{inset:68px 0 0}
+  .phone{font-size:15px}
+  .phone small{display:none}
+  .logo small{display:none}
+  .hero .container{padding-top:64px}
+  .hero-stats{grid-template-columns:1fr 1fr;margin-top:56px}
+  .stat{padding:20px 12px 14px 0}
+  .stat+.stat{padding-left:12px}
+  .stat:nth-child(3){border-left:0;padding-left:0}
+  .stat:nth-child(n+3){border-top:1px solid rgba(255,255,255,.14)}
+  .cats,.features,.companies,.news,.grades,.steps,.strip .container,.footer-top{grid-template-columns:1fr}
+  .cat.featured{grid-column:auto}
+  .card,.calc,.quick{padding:22px}
+  .eco,.lead{padding:32px 22px;border-radius:22px}
+  .lab{grid-template-columns:1fr;padding:24px}
+  .ptable .use{display:none}
+  .float-call{display:grid}
+  .btn{height:52px}
+}
+
+/* fixes */
+.nav{gap:22px}
+.nav a,.phone{white-space:nowrap}
+.header .container{gap:24px}
+.eco-num{font-size:clamp(44px,6vw,92px);white-space:nowrap}
+.eco-num span{white-space:normal}
+@media (max-width:1280px){.header .logo small{display:none}.nav{gap:18px}}
+@media (max-width:720px){.topbar{display:none}}
+
+</style>
 </head>
 <body>
 
@@ -261,7 +610,7 @@
     </div>
     <div class="companies reveal">
       <div class="company">
-        <div class="company-img" style="background-image:url(https://rubezh.company/images/rubezh-photo.jpg)"><span class="since">с 2012</span></div>
+        <div class="company-img" style="background-image:url(assets/img/rubezh-photo.jpg)"><span class="since">с 2012</span></div>
         <div class="company-body">
           <h3>ООО «Рубеж»</h3>
           <p>Товарный бетон, железобетонные изделия и сухие строительные смеси.</p>
@@ -269,7 +618,7 @@
         </div>
       </div>
       <div class="company">
-        <div class="company-img" style="background-image:url(https://rubezh.company/images/eurotrade-photo.jpg)"><span class="since">с 2018</span></div>
+        <div class="company-img" style="background-image:url(assets/img/eurotrade-photo.jpg)"><span class="since">с 2018</span></div>
         <div class="company-body">
           <h3>НПП «Скала»</h3>
           <p>Брусчатка, дорожный борт, поребрик, строительный блок.</p>
@@ -277,7 +626,7 @@
         </div>
       </div>
       <div class="company">
-        <div class="company-img" style="background-image:url(https://rubezh.company/images/eco-rubezh-photo.jpg)"><span class="since">с 2019</span></div>
+        <div class="company-img" style="background-image:url(assets/img/eco-rubezh-photo.jpg)"><span class="since">с 2019</span></div>
         <div class="company-body">
           <h3>ГК «Рубеж»</h3>
           <p>Шлаковый щебень различных фракций — сырьё для всех производств группы.</p>
@@ -309,15 +658,15 @@
     </div>
     <div class="news reveal">
       <a href="#" class="news-card">
-        <div class="news-img" style="background-image:url(https://rubezh.company/images/pages/news/certificate-gk-rubezh-zhelezobeton.jpg)"></div>
+        <div class="news-img" style="background-image:url(assets/img/certificate-gk-rubezh-zhelezobeton.jpg)"></div>
         <div class="news-body"><time>Февраль 2026</time><h3>ГК «Рубеж» вступила в Ассоциацию «Железобетон»</h3></div>
       </a>
       <a href="#" class="news-card">
-        <div class="news-img" style="background-image:url(https://rubezh.company/images/pages/news/zapushhen-v-rabotu-betonnyj-zavod-elkomix.jpg)"></div>
+        <div class="news-img" style="background-image:url(assets/img/zapushhen-v-rabotu-betonnyj-zavod-elkomix.jpg)"></div>
         <div class="news-body"><time>Июль 2024</time><h3>Запущен бетонный завод Elkomix-150 мощностью до 130 м³ в час</h3></div>
       </a>
       <a href="#" class="news-card">
-        <div class="news-img" style="background-image:url(https://rubezh.company/images/pages/news/zapushheno-proizvodstvo-zhelezobetonnykh-izdelij-na-oborudovanii-cgm.jpg)"></div>
+        <div class="news-img" style="background-image:url(assets/img/zapushheno-proizvodstvo-zhelezobetonnykh-izdelij-na-oborudovanii-cgm.jpg)"></div>
         <div class="news-body"><time>Июль 2023</time><h3>Запущено производство ЖБИ на оборудовании CGM</h3></div>
       </a>
     </div>
@@ -409,6 +758,89 @@
 
 <a href="tel:88005505871" class="float-call" aria-label="Позвонить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a>
 
-<script src="assets/main.js"></script>
+<script>
+// Мобильное меню
+const burger = document.querySelector('.burger');
+const mmenu = document.querySelector('.mobile-menu');
+if (burger && mmenu) {
+  burger.addEventListener('click', () => mmenu.classList.toggle('open'));
+  mmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mmenu.classList.remove('open')));
+}
+
+// Появление блоков при скролле
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: .12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Формы (демо — без отправки)
+document.querySelectorAll('form[data-demo]').forEach(f => {
+  f.addEventListener('submit', e => {
+    e.preventDefault();
+    const ok = f.querySelector('.form-ok');
+    if (ok) { ok.style.display = 'block'; }
+    f.querySelectorAll('input,select,button').forEach(el => el.disabled = true);
+  });
+});
+
+// Маска телефона (простая)
+document.querySelectorAll('input[type=tel]').forEach(inp => {
+  inp.addEventListener('input', () => {
+    let d = inp.value.replace(/\D/g, '').replace(/^[78]/, '').slice(0, 10);
+    let r = '+7';
+    if (d.length) r += ' (' + d.slice(0, 3);
+    if (d.length >= 3) r += ') ' + d.slice(3, 6);
+    if (d.length >= 6) r += '-' + d.slice(6, 8);
+    if (d.length >= 8) r += '-' + d.slice(8, 10);
+    inp.value = r;
+  });
+});
+
+// Калькулятор бетона
+const calc = document.querySelector('[data-calc]');
+if (calc) {
+  const grade = calc.querySelector('[name=grade]');
+  const vol = calc.querySelector('[name=volume]');
+  const volOut = calc.querySelector('[data-vol]');
+  const pump = calc.querySelector('[name=pump]');
+  const zoneBtns = calc.querySelectorAll('[data-zone]');
+  const km = calc.querySelector('[name=km]');
+  const kmField = calc.querySelector('[data-km-field]');
+  const out = {
+    concrete: calc.querySelector('[data-out=concrete]'),
+    delivery: calc.querySelector('[data-out=delivery]'),
+    pump: calc.querySelector('[data-out=pump]'),
+    total: calc.querySelector('[data-out=total]'),
+  };
+  const MIXER = 7; // м³ в одном рейсе — уточнить у заказчика
+  let zone = 'city';
+  const fmt = n => n.toLocaleString('ru-RU') + ' ₽';
+
+  function recalc() {
+    const v = +vol.value;
+    volOut.textContent = v + ' м³';
+    const price = +grade.value;
+    const trips = Math.ceil(v / MIXER);
+    let perTrip = zone === 'city' ? 3050 : zone === 'district' ? 3560 : 83 * (+km.value || 0);
+    const concrete = price * v;
+    const delivery = perTrip * trips;
+    const pumpCost = pump.checked ? 6100 * 4 : 0;
+    out.concrete.textContent = fmt(concrete);
+    out.delivery.textContent = fmt(delivery) + ' · ' + trips + ' рейс' + (trips === 1 ? '' : trips < 5 ? 'а' : 'ов');
+    out.pump.textContent = pump.checked ? fmt(pumpCost) : '—';
+    out.total.textContent = fmt(concrete + delivery + pumpCost);
+  }
+  zoneBtns.forEach(b => b.addEventListener('click', () => {
+    zoneBtns.forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    zone = b.dataset.zone;
+    kmField.style.display = zone === 'far' ? 'block' : 'none';
+    recalc();
+  }));
+  [grade, vol, pump, km].forEach(el => el && el.addEventListener('input', recalc));
+  recalc();
+}
+
+</script>
 </body>
 </html>
