@@ -38,8 +38,8 @@ a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit;color:inherit}
 .container{max-width:var(--container);margin:0 auto;padding:0 24px}
 h1,h2,h3,h4{font-family:var(--head);font-weight:600;line-height:1.1;letter-spacing:-.02em}
-h1{font-size:clamp(34px,5.4vw,72px)}
-h2{font-size:clamp(28px,3.6vw,46px)}
+h1{font-size:clamp(30px,4.6vw,60px)}
+h2{font-size:clamp(24px,3vw,40px)}
 h3{font-size:clamp(18px,1.6vw,22px)}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
 .eyebrow::before{content:"";width:28px;height:2px;background:currentColor}
@@ -91,11 +91,11 @@ h3{font-size:clamp(18px,1.6vw,22px)}
 .hero{position:relative;background:var(--graphite);color:#fff;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:
   linear-gradient(100deg,rgba(17,19,22,.96) 0%,rgba(17,19,22,.82) 42%,rgba(17,19,22,.35) 100%),
-  url("assets/img/rubezh-photo.jpg") center/cover no-repeat,
+  url("assets/img/zapushhen-v-rabotu-betonnyj-zavod-elkomix.jpg") 70% 60%/cover no-repeat,
   linear-gradient(135deg,#2a2e34,#14161a)}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(90deg,#000 30%,transparent 80%)}
 .hero .container{position:relative;padding-top:110px;padding-bottom:56px}
-.hero h1{max-width:900px;margin:22px 0 26px}
+.hero h1{max-width:1000px;margin:22px 0 26px}
 .hero h1 em{font-style:normal;color:var(--accent)}
 .hero-lead{max-width:560px;font-size:19px;color:#cfd2d7}
 .hero-cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
@@ -173,6 +173,7 @@ h3{font-size:clamp(18px,1.6vw,22px)}
 .feature.dark p{color:#fff;opacity:.9}
 
 /* Eco band */
+.eco>*{min-width:0}
 .eco{background:var(--ink);color:#fff;border-radius:28px;padding:64px;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;position:relative;overflow:hidden}
 .eco::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,106,19,.35),transparent 70%)}
 .eco h2{margin:16px 0 20px}
@@ -242,9 +243,9 @@ h3{font-size:clamp(18px,1.6vw,22px)}
 .crumbs{display:flex;gap:8px;font-size:14px;color:#a9adb4;flex-wrap:wrap}
 .crumbs a:hover{color:#fff}
 .lhero{background:var(--graphite);color:#fff;position:relative;overflow:hidden}
-.lhero-bg{position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,19,22,.97) 0%,rgba(17,19,22,.85) 50%,rgba(17,19,22,.55) 100%),url("assets/img/zapushhen-v-rabotu-betonnyj-zavod-elkomix.jpg") center/cover no-repeat,linear-gradient(135deg,#2a2e34,#14161a)}
+.lhero-bg{position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,19,22,.97) 0%,rgba(17,19,22,.85) 50%,rgba(17,19,22,.55) 100%),url("assets/img/beton-default.jpg") 65% center/cover no-repeat,linear-gradient(135deg,#2a2e34,#14161a)}
 .lhero .container{position:relative;display:grid;grid-template-columns:1.25fr .85fr;gap:56px;padding-top:44px;padding-bottom:80px;align-items:center}
-.lhero h1{font-size:clamp(32px,4.4vw,60px);margin:28px 0 22px}
+.lhero h1{font-size:clamp(28px,3.6vw,50px);margin:28px 0 22px}
 .lhero h1 em{font-style:normal;color:var(--accent)}
 .lhero .price-badge{display:inline-flex;align-items:baseline;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:12px 18px;border-radius:14px}
 .lhero .price-badge b{font-family:var(--head);font-size:28px;color:#fff}
@@ -352,11 +353,26 @@ h3{font-size:clamp(18px,1.6vw,22px)}
 .nav{gap:22px}
 .nav a,.phone{white-space:nowrap}
 .header .container{gap:24px}
-.eco-num{font-size:clamp(44px,6vw,92px);white-space:nowrap}
+.eco-num{font-size:clamp(56px,7vw,104px);min-width:0;overflow-wrap:anywhere}
+.eco-num small{font-size:.38em;color:var(--accent);margin-left:.15em;letter-spacing:0}
 .eco-num span{white-space:normal}
 @media (max-width:1280px){.header .logo small{display:none}.nav{gap:18px}}
 @media (max-width:720px){.topbar{display:none}}
 
+@media (max-width:400px){.logo{font-size:17px;gap:8px}.logo-mark{width:32px;height:32px}.phone{font-size:13px}.burger{width:40px;height:40px}.header .container{gap:8px}.header-right{gap:8px}}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(17,19,22,.95) 0%,rgba(17,19,22,.55) 30%,transparent 55%)}
+@media (max-width:720px){
+  .hero-bg::after{background:rgba(17,19,22,.55)}
+  .lhero-bg{background-position:center,60% center,center!important}
+  .cat{min-height:0;flex-direction:row;align-items:center;gap:16px;padding:18px 60px 18px 18px}
+  .cat h3{margin-top:0}
+  .cat .go{top:50%;transform:translateY(-50%);right:16px}
+  .cat:hover .go{transform:translateY(-50%) rotate(-45deg)}
+  .cat.featured{flex-direction:column;align-items:stretch;min-height:340px;padding:24px}
+  .cat.featured .go{top:22px;transform:none}
+  .hero-tags .tag:nth-child(n+3){display:none}
+}
+.lhero .price-badge{flex-wrap:wrap;row-gap:2px}.lhero .price-badge b{white-space:nowrap}
 </style>
 </head>
 <body>
